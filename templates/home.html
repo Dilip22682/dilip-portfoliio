@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <p class="text-indigo fw-600 mb-2" style="color:#6366F1; letter-spacing:3px; font-size:0.9rem;">
+                    WELCOME TO MY PORTFOLIO
+                </p>
+                <h1 class="hero-title">
+                    Hi, I'm <br>
+                    <span>{{ profile.name|default:"Your Name" }}</span>
+                </h1>
+                <p class="hero-subtitle">{{ profile.title|default:"Full Stack Developer" }}</p>
+                <p style="color:#64748B; max-width:500px; line-height:1.8;">
+                    {{ profile.bio|truncatewords:30|default:"Passionate developer creating amazing web experiences." }}
+                </p>
+                <div class="mt-4 d-flex gap-3 flex-wrap">
+                    <a href="#projects" class="btn btn-primary-custom">
+                        <i class="fas fa-eye me-2"></i>View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-outline-custom">
+                        <i class="fas fa-paper-plane me-2"></i>Hire Me
+                    </a>
+                </div>
+                <!-- SOCIAL LINKS -->
+                <div class="mt-4 d-flex gap-3">
+                    {% if profile.github %}
+                    <a href="{{ profile.github }}" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                    {% if profile.linkedin %}
+                    <a href="{{ profile.linkedin }}" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0" data-aos="fade-left">
+                {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" class="hero-photo" alt="{{ profile.name }}">
+                {% else %}
+                <div class="hero-photo d-flex align-items-center justify-content-center mx-auto"
+                    style="background: linear-gradient(135deg,#6366F1,#8B5CF6);">
+                    <i class="fas fa-user" style="font-size:100px; color:#fff;"></i>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ABOUT SECTION -->
+<section class="section-pad" id="about">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle">Get To Know Me</p>
+            <h2 class="section-title">About Me</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5" data-aos="fade-right">
+                {% if profile.photo %}
+                <img src="{{ profile.photo.url }}" class="img-fluid rounded-4 shadow-lg" alt="{{ profile.name }}">
+                {% endif %}
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <h3 class="fw-800 mb-3" style="font-size:2rem;">
+                    I'm {{ profile.name }} — {{ profile.title }}
+                </h3>
+                <p class="text-muted" style="line-height:1.9; font-size:1.05rem;">
+                    {{ profile.bio }}
+                </p>
+                <div class="row g-3 mt-3">
+                    <div class="col-4">
+                        <div class="about-stat">
+                            <h3>{{ projects.count }}+</h3>
+                            <p class="text-muted mb-0 small">Projects Done</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="about-stat">
+                            <h3>{{ skills.count }}+</h3>
+                            <p class="text-muted mb-0 small">Skills</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="about-stat">
+                            <h3>{{ experiences.count }}+</h3>
+                            <p class="text-muted mb-0 small">Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-3 flex-wrap">
+                    {% if profile.resume %}
+                    <a href="{{ profile.resume.url }}" class="btn btn-primary-custom" download>
+                        <i class="fas fa-download me-2"></i>Download Resume
+                    </a>
+                    {% endif %}
+                    <a href="#contact" class="btn btn-outline-custom">
+                        <i class="fas fa-envelope me-2"></i>Contact Me
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SKILLS SECTION -->
+<section class="section-pad skills-section" id="skills">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle">What I Know</p>
+            <h2 class="section-title">My Skills</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row g-4">
+            <!-- FRONTEND -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-card">
+                    <h5><i class="fas fa-laptop-code me-2 text-indigo" style="color:#6366F1;"></i>Frontend</h5>
+                    {% for skill in frontend_skills %}
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between skill-name">
+                            <span>{{ skill.name }}</span>
+                            <span>{{ skill.percentage }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: {{ skill.percentage }}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- BACKEND -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-card">
+                    <h5><i class="fas fa-server me-2" style="color:#6366F1;"></i>Backend</h5>
+                    {% for skill in backend_skills %}
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between skill-name">
+                            <span>{{ skill.name }}</span>
+                            <span>{{ skill.percentage }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: {{ skill.percentage }}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- TOOLS -->
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="skill-card">
+                    <h5><i class="fas fa-tools me-2" style="color:#6366F1;"></i>Tools & Others</h5>
+                    {% for skill in tools_skills %}
+                    <div class="skill-item">
+                        <div class="d-flex justify-content-between skill-name">
+                            <span>{{ skill.name }}</span>
+                            <span>{{ skill.percentage }}%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-fill" style="width: {{ skill.percentage }}%;"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- PROJECTS SECTION -->
+<section class="section-pad" id="projects">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle">My Work</p>
+            <h2 class="section-title">Projects</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+                <div class="card project-card">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="project-img" alt="{{ project.title }}">
+                    {% else %}
+                    <div class="project-no-img">
+                        <i class="fas fa-code" style="font-size:50px; color:#fff; opacity:0.5;"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body p-4">
+                        {% if project.featured %}
+                        <span class="badge mb-2" style="background:#EEF2FF; color:#6366F1;">⭐ Featured</span>
+                        {% endif %}
+                        <h5 class="fw-700 mb-2">{{ project.title }}</h5>
+                        <p class="text-muted small mb-3">{{ project.description|truncatewords:20 }}</p>
+                        <div class="mb-3">
+                            {% for tech in project.tech_stack.split %}
+                            <span class="badge-tech">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank"
+                                class="btn btn-sm btn-dark rounded-pill px-3">
+                                <i class="fab fa-github me-1"></i>Code
+                            </a>
+                            {% endif %}
+                            {% if project.live_link %}
+                            <a href="{{ project.live_link }}" target="_blank"
+                                class="btn btn-sm rounded-pill px-3"
+                                style="background:#6366F1; color:#fff;">
+                                <i class="fas fa-external-link-alt me-1"></i>Live
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                <i class="fas fa-folder-open fa-3x mb-3"></i>
+                <p>No projects added yet. Add them from admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- EXPERIENCE SECTION -->
+<section class="section-pad bg-light" id="experience">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle">My Journey</p>
+            <h2 class="section-title">Experience</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="timeline">
+                    {% for exp in experiences %}
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-card">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                                <div>
+                                    <h5 class="fw-700 mb-1">{{ exp.position }}</h5>
+                                    <p class="text-primary mb-0 fw-600" style="color:#6366F1 !important;">
+                                        {{ exp.company }}
+                                    </p>
+                                </div>
+                                <span class="timeline-date">
+                                    {{ exp.start_date|date:"M Y" }} —
+                                    {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                                </span>
+                            </div>
+                            <p class="text-muted mb-0 mt-2">{{ exp.description }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted">No experience added yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- EDUCATION SECTION -->
+<section class="section-pad" id="education">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle">My Background</p>
+            <h2 class="section-title">Education</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="timeline">
+                    {% for edu in educations %}
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-card">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                                <div>
+                                    <h5 class="fw-700 mb-1">{{ edu.degree }}</h5>
+                                    <p style="color:#6366F1;" class="fw-600 mb-0">{{ edu.institution }}</p>
+                                    <p class="text-muted small mb-0">{{ edu.field }}</p>
+                                </div>
+                                <span class="timeline-date">
+                                    {{ edu.start_year }} —
+                                    {% if edu.is_current %}Present{% else %}{{ edu.end_year }}{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-center text-muted">No education added yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CONTACT SECTION -->
+<section class="section-pad contact-section" id="contact">
+    <div class="container">
+        <div class="text-center" data-aos="fade-up">
+            <p class="section-subtitle" style="color:#8B5CF6;">Get In Touch</p>
+            <h2 class="section-title text-white">Contact Me</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <!-- CONTACT INFO -->
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="contact-card h-100">
+                    <h4 class="text-white fw-700 mb-4">Let's Talk</h4>
+                    {% if profile.email %}
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <p class="text-white mb-0 fw-600">Email</p>
+                            <p class="mb-0">{{ profile.email }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if profile.phone %}
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <p class="text-white mb-0 fw-600">Phone</p>
+                            <p class="mb-0">{{ profile.phone }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if profile.location %}
+                    <div class="contact-info-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <p class="text-white mb-0 fw-600">Location</p>
+                            <p class="mb-0">{{ profile.location }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- CONTACT FORM -->
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="contact-card">
+                    <h4 class="text-white fw-700 mb-4">Send Message</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ form.name }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.subject }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.message }}
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary-custom w-100 py-3">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animate skill bars on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+                    bar.style.width = bar.getAttribute('data-width') + '%';
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
