@@ -11,7 +11,7 @@ urlpatterns = [
     path('dashboard/login/', views.dashboard_login, name='dashboard_login'),
     path('dashboard/logout/', views.dashboard_logout, name='dashboard_logout'),
 
-    # Profile
+    
     path('dashboard/profile/', views.profile_form, name='profile_form'),
 
     # Skills
