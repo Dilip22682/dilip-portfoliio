@@ -1,5 +1,5 @@
 # Dilip Portfolio Website
-# dilip-portfoliio
+# dilip-portfolio
 
 A modern and responsive portfolio website built with Django, designed to showcase my professional experience, technical skills, projects, and achievements as a Python Developer and Web Scraping Specialist.
 
